@@ -1,8 +1,7 @@
 // import React from 'react';
 import React, { Component } from 'react';
-
-import Counter from './components/Counter';
-// import Dropdown from './components/Dropdown';
+// import Counter from './components/Counter';
+import Dropdown from './components/Dropdown';
 // import ColorPicker from './components/ColorPicker';
 // import TodoList from './components/TodoList';
 // import initialTodos from './todos.json';
@@ -48,8 +47,8 @@ class App extends Component {
       <>
         <h1>Состояние компонента</h1>
 
-        <Counter initialValue={10} />
-        {/* <Dropdown /> */}
+        {/* <Counter initialValue={10} /> */}
+        <Dropdown />
         {/* <ColorPicker options={colorPickerOptions} /> */}
 
         {/* <div>
