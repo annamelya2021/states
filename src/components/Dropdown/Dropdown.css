@@ -1,8 +1,11 @@
 .Dropdown {
   position: relative;
   width: 400px;
-  padding: 20px;
+  padding: 10px;
   border: 1px solid black;
+  /* margin-right: 10px; */
+  margin: 0 auto;
+  margin-bottom: 70px;
 }
 
 .Dropdown__menu {
@@ -11,8 +14,9 @@
   left: 0;
   width: 399px;
   border: 1px solid black;
-  padding: 20px;
+  padding: 10px;
   text-align: center;
   background-color: teal;
   color: white;
+  margin: 0 auto;
 }

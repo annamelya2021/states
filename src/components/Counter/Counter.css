@@ -3,6 +3,8 @@
   padding: 10px;
   border: 1px solid black;
   text-align: center;
+  margin: 0 auto;
+  margin-bottom: 40px;
 }
 
 .Counter__controls > button {

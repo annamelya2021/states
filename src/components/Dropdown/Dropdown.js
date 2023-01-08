@@ -19,6 +19,7 @@ class Dropdown extends Component {
   // };
 
   render() {
+    const { visible } = this.state;
     return (
       <div className="Dropdown">
         <button type="button" className="Dropdown__togle" onClick={this.toggle}>
@@ -28,7 +29,7 @@ class Dropdown extends Component {
           {' '}
           Скрити */}
         {/* </button> */}
-        {this.state.visible && <div className="Dropdown__menu">випадалка</div>}
+        {visible && <div className="Dropdown__menu">випадалка</div>}
       </div>
     );
   }
