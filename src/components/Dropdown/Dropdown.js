@@ -29,7 +29,8 @@ class Dropdown extends Component {
           {' '}
           Скрити */}
         {/* </button> */}
-        {visible && <div className="Dropdown__menu">випадалка</div>}
+        {/* {visible && <div className="Dropdown__menu">випадалка</div>} */}
+        {visible && <div className="Dropdown__menu">{this.props.children}</div>}
       </div>
     );
   }

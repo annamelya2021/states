@@ -14,6 +14,13 @@ import Filter from './components/TodoList/Filter';
 
 import TodoEditor from './components/TodoEditor';
 import shortid from 'shortid';
+import Modal from './components/Modal';
+import Clock from './components/Clock';
+import Tabs from './components/Tabs';
+import tabs from './tabs.json';
+import IconButton from './components/IconButton';
+import { ReactComponent as AddIcon } from './icons/add.svg';
+import { ReactComponent as DeleteIcon } from './icons/delete.svg';
 
 // console.log(TodoEditor);
 const colorPickerOptions = [
@@ -37,6 +44,7 @@ class App extends Component {
   state = {
     todos: initialTodos,
     filter: '',
+    showModal: false,
   };
   addTodo = text => {
     console.log(text);
@@ -56,7 +64,7 @@ class App extends Component {
   };
 
   toggleCompleted = todoId => {
-    console.log(todoId);
+    // console.log(todoId);
 
     // this.setState(prevState => ({
     //   todos: prevState.todos.map(todo => {
@@ -108,15 +116,49 @@ class App extends Component {
     );
   };
 
-  // handleTagEvent = event => {
-  //   this.setState({ tag: event.currentTarget.value });
-  // };
-  // handleNameChange = event => {
-  //   this.setState({ name: event.currentTarget.value });
-  // };
+  componentDidMount() {
+    // console.log('App componentDidMount');
+    const todos = localStorage.getItem('todos');
+    const parsedTodos = JSON.parse(todos);
 
+    if (parsedTodos) {
+      this.setState({ todos: parsedTodos });
+    }
+    // console.log(parsedTodos);
+    // this.setState({ todos: parsedTodos });
+  }
+
+  handleTagEvent = event => {
+    this.setState({ tag: event.currentTarget.value });
+  };
+  handleNameChange = event => {
+    this.setState({ name: event.currentTarget.value });
+  };
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.todos !== prevState.todos) {
+      // console.log('Обновилось поле todos записіваю метод в хранилище');
+
+      localStorage.setItem('todos', JSON.stringify(this.state.todos));
+    }
+    // console.log('component DidUpdate :>> ');
+    // console.log('prevProps :>> ', prevProps);
+    // console.log('prevState :>> ', prevState);
+    // console.log('this.state :>> ', this.state);
+  }
+
+  toggleModal = () => {
+    this.setState(({ showModal }) => ({
+      showModal: !showModal,
+    }));
+  };
   render() {
-    const { todos, filter } = this.state;
+    // console.log('App render');
+    const { showModal } = this.state;
+    // const { filter } = this.state;
+
+    const { todos } = this.state;
+    const { filter } = this.state;
+
     const totalTodoCount = todos.length;
     const completedTodoCount = this.calculateCompletedTodos();
     const visibleTodos = this.getVisibleTodos();
@@ -125,8 +167,28 @@ class App extends Component {
       <>
         <h1>Состояние компонента</h1>
         <Counter initialValue={10} />
-        <Dropdown />
+        <Dropdown></Dropdown>
         <ColorPicker options={colorPickerOptions} />
+        {/* <IconAdd></IconAdd> */}
+        <IconButton
+          type="button"
+          onClick={this.toggleModal}
+          aria-label="доб туту"
+        >
+          <AddIcon width="40px"></AddIcon> Відкрити модалку
+        </IconButton>
+        {/* <button type="button" onClick={this.toggleModal}>
+          Відкрити модалку
+        </button> */}
+        {showModal && (
+          <Modal onClose={this.toggleModal}>
+            <h1>Заголовок childen</h1>
+            <p>hhgj flkdg </p>
+            <button type="button" onClick={this.toggleModal}>
+              <DeleteIcon /> закрити
+            </button>
+          </Modal>
+        )}
         <div>
           <p>Общее кол-во: {totalTodoCount}</p>
           <p>Кол-во выполненных: {completedTodoCount}</p>
@@ -136,11 +198,29 @@ class App extends Component {
             onToggleCompleted={this.toggleCompleted}
           />
         </div>
-        {/* <Form onSubmit={this.formSubmitHandler}></Form> */}
-        <Form onSubmit={this.formSubmitHandler}></Form>
+        <br></br>
+        <br></br>
+        <br></br>
         <TodoEditor onSubmit={this.addTodo}></TodoEditor>
+        <br></br>
+        <br></br>
+        <br></br>
         <Filter value={filter} onChange={this.changeFilter} />
-        {/* <Espresso /> */}
+        <br></br>
+        <br></br>
+        <br></br>
+        <Form onSubmit={this.formSubmitHandler}></Form>
+        <br></br>
+        <br></br>
+        <br></br>
+        <Tabs items={tabs}></Tabs>
+        <br></br>
+        <br></br>
+        <br></br>
+        <Clock></Clock>
+        <br></br>
+        <br></br>
+        <br></br>
       </>
     );
   }
